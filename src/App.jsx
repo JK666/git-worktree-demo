@@ -6,6 +6,7 @@ import UseCases from './components/UseCases';
 import Pricing from './components/Pricing';
 import CallToAction from './components/CallToAction';
 import Footer from './components/Footer';
+import FAQ from './components/FAQ';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Features />
                 <UseCases />
                 <Pricing />
+                <FAQ />
                 <CallToAction />
             </main>
             <Footer />
