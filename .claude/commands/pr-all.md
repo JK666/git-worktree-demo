@@ -91,7 +91,8 @@ PR Description 依照以下模板撰寫：
 ---
 
 【第四步：建立 PR】
-gh pr create --base master --title "<title>" --body "<description>"
+先執行 `gh repo set-default JK666/git-worktree-demo` 確保 PR 開在正確的 repo，再執行：
+gh pr create --repo JK666/git-worktree-demo --base master --title "<title>" --body "<description>"
 
 【第五步：回傳結果】
 - 分支名稱
