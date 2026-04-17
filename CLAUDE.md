@@ -41,12 +41,13 @@ pnpm preview      # 預覽打包後的正式版本
 
 | 指令 | 範圍 | 手動觸發 | AI 自動觸發條件 |
 |------|------|----------|----------------|
-| `worktree-design` | ALL | `/worktree-design` | 說「worktree」、「平行開發」、「多分支」，或需求適合拆成多個 feature branch |
+| `git-worktree-design` | ALL | `/git-worktree-design` | 說「worktree」、「平行開發」、「多分支」，或需求適合拆成多個 feature branch |
 | `spec-exec` | Single | `/spec-exec` | 進入含 `git-worktree-spec.md` 的 worktree 後說「開始開發」、「執行 spec」、「按 spec 做」 |
 | `spec-exec-all` | ALL | `/spec-exec-all` | 說「執行所有 spec」、「全部 spec 一起跑」、「平行執行所有 worktree」 |
-| `commit-push` | Single | `/commit-push` | 說「commit 並 push」、「提交並推送」（單一 worktree） |
+| `git-smart-commit` | Single | `/git-smart-commit` | 說「幫我 commit」、「smart commit」（只 commit，不 push） |
+| `commit-push` | Single | `/commit-push` | 說「commit 並 push」、「提交並推送」（單一 worktree，commit + push） |
 | `commit-push-all` | ALL | `/commit-push-all` | 說「全部 commit push」、「提交所有分支」 |
-| `pr-create` | Single | `/pr-create` | 說「寫 PR」、「PR 描述」、「建立 PR」（單一分支） |
+| `git-pr-description` | Single | `/git-pr-description` | 說「寫 PR」、「PR 描述」、「建立 PR」（單一分支） |
 | `pr-create-all` | ALL | `/pr-create-all` | 說「產生所有 PR」、「建立所有 PR」 |
 
 ### 混搭範例
