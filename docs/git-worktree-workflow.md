@@ -38,7 +38,19 @@ repo/
 
 ## 標準完整流程
 
-### 步驟 1：設計並建立 Worktree
+### 步驟 1：設定主專案
+
+Clone repo 後，在主專案安裝依賴與設定環境：
+
+```bash
+cd git-worktree-demo
+pnpm install        # 安裝依賴（只需在主專案執行一次）
+cp .env.example .env  # 若有環境變數，複製並填寫
+```
+
+> **pnpm 注意事項：** pnpm 透過 symlink 共享 `node_modules`，各 worktree 會直接指向主專案的依賴，**不需在每個 worktree 重複安裝**。
+
+### 步驟 2：設計並建立 Worktree
 
 告訴 Claude 你有哪些需求，讓它分析後建立 worktree 與 spec：
 
@@ -50,15 +62,6 @@ Claude 會：
 - 分析需求，建議拆分成幾個 worktree
 - 執行 `git worktree add` 建立各資料夾
 - 在每個 worktree 寫入 `git-worktree-spec.md`（任務清單）
-
-### 步驟 2：安裝依賴
-
-每個新建的 worktree 資料夾都需要安裝依賴：
-
-```bash
-cd ../git-worktree-demo-faq
-pnpm install
-```
 
 ### 步驟 3：執行 Spec（實作）
 

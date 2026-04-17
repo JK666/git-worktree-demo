@@ -65,8 +65,8 @@ spec-exec → commit-push → pr-create
 ### Worktree Workflow
 
 當使用 git worktree 平行開發時：
-1. 執行 `/worktree-design` → 分析需求、建立 worktrees、寫入 `git-worktree-spec.md`
-2. 切換到對應 worktree 目錄，執行 `pnpm install`
+1. 主專案執行 `pnpm install`（pnpm symlink 共享依賴，worktree 不需重複安裝）
+2. 執行 `/worktree-design` → 分析需求、建立 worktrees、寫入 `git-worktree-spec.md`
 3. 執行 `/spec-exec` 或 `/spec-exec-all` → 依 spec 逐項實作並打勾追蹤進度
 4. 執行 `/commit-push` 或 `/commit-push-all` → 自動拆分 commit 並推送
 5. 執行 `/pr-create` 或 `/pr-create-all` → 建立 PR
