@@ -178,6 +178,123 @@ Spec 完成後會自動歸檔到 `history_specs/<日期>_<hash>.md`。
 
 ---
 
+## GitHub PR 機制設定
+
+### 概念：PR 的完整生命週期
+
+```
+local branch → git push → GitHub branch → 開 PR → Review → Merge → 刪除 branch
+```
+
+### 一、GitHub Repo 設定（Settings）
+
+**1. Branch Protection Rules（保護 master 不能直接 push）**
+
+前往：`Settings → Branches → Add branch ruleset`
+
+| 設定項目 | 建議值 | 說明 |
+|---------|--------|------|
+| Branch name pattern | `master` | 套用到 master 分支 |
+| Require a pull request before merging | ✅ 開啟 | 所有變更必須走 PR |
+| Required approvals | 1（團隊用）/ 0（個人用） | PR 需要幾人 review |
+| Require status checks to pass | 視 CI 而定 | 若有 CI 需全過才能 merge |
+| Do not allow bypassing | ✅ 開啟（團隊建議） | 即使 admin 也要走 PR |
+
+**2. Auto-delete head branches（Merge 後自動刪除遠端分支）**
+
+前往：`Settings → General → Pull Requests`
+
+勾選 **Automatically delete head branches** — Merge 完遠端 feature branch 自動刪除，不需手動清。
+
+**3. Merge 策略選擇**
+
+同一位置可設定允許哪些 Merge 方式：
+
+| 方式 | 說明 | 適用情境 |
+|------|------|---------|
+| **Merge commit** | 保留完整歷史，產生一個 merge commit | 需要完整追蹤時 |
+| **Squash and merge** | 把所有 commit 壓成一個再 merge | feature branch commit 很碎時 |
+| **Rebase and merge** | 把 commit 接在 master 後面，無 merge commit | 喜歡線性歷史時 |
+
+> 本專案 skill 產出的 commit 已依功能邏輯拆分，建議使用 **Merge commit** 保留完整記錄。
+
+---
+
+### 二、PR 流程相關 git 指令
+
+#### 推送分支（開 PR 前）
+
+```bash
+# 推送並設定 upstream tracking
+git push -u origin feature/faq-section
+
+# 之後同一分支再推，只需
+git push
+```
+
+#### 查看遠端分支狀態
+
+```bash
+# 列出所有遠端分支
+git branch -r
+
+# 確認遠端是否有某分支
+git ls-remote --heads origin feature/faq-section
+
+# 取得遠端最新狀態（不合併）
+git fetch origin
+```
+
+#### 開 PR（用 GitHub CLI）
+
+```bash
+# 建立 PR（base 為 master）
+gh pr create --base master --title "feat(faq): 新增 FAQ 區塊" --body "..."
+
+# 查看現有 PR 列表
+gh pr list
+
+# 查看某個 PR 狀態
+gh pr view 12
+
+# 在 terminal 開啟 PR 頁面
+gh pr view 12 --web
+```
+
+#### Merge 後清理
+
+```bash
+# 更新本地 master（fast-forward）
+git pull --ff-only
+
+# 刪除本地 feature branch（已合併）
+git branch -d feature/faq-section
+
+# 若遠端已刪但本地 remote tracking 還在，清理它
+git remote prune origin
+
+# 刪除 worktree
+git worktree remove ../git-worktree-demo-faq
+
+# 一次查看所有 worktree 狀態
+git worktree list
+```
+
+#### 緊急狀況
+
+```bash
+# 查看某 PR 的 commits（在 feature branch 上）
+git log master..HEAD --oneline
+
+# 比較 feature branch 與 master 的差異
+git diff master...HEAD
+
+# 強制刪除尚未合併的 local branch（謹慎使用）
+git branch -D feature/abandon-this
+```
+
+---
+
 ## 常見問題
 
 **Q：worktree 要放在哪裡？**  
