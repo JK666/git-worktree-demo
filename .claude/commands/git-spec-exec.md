@@ -1,5 +1,5 @@
 ---
-description: 讀取當前 worktree 的 git-worktree-spec.md 並依照 spec 內容執行開發任務。當使用者說「執行 spec」、「開始開發」、「按照 spec 做」、「exec spec」、「spec-exec」，或進入一個有 git-worktree-spec.md 的 worktree 時觸發。
+description: 讀取當前 worktree 的 git-worktree-spec.md 並依照 spec 內容執行開發任務。當使用者說「執行 spec」、「開始開發」、「按照 spec 做」、「git-spec-exec」，或進入一個有 git-worktree-spec.md 的 worktree 時觸發。
 ---
 
 # 執行 Worktree Feature Spec

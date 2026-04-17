@@ -1,5 +1,5 @@
 ---
-description: 將雜亂的 git 變更，依功能邏輯自動拆分成多個有意義的 conventional commit（繁體中文）。當使用者說「smart commit」、「智慧提交」、「幫我 commit」、「拆分 commit」時觸發。與 commit-push 的差異：本 skill 只做 commit，不 push，適合本地暫存或尚未準備推送的情境。
+description: 將 git 變更依功能邏輯自動拆分成多個有意義的 conventional commit（繁體中文），只做 commit 不 push。當使用者說「smart commit」、「智慧提交」、「幫我 commit」、「拆分 commit」、「git-commit-description」時觸發。只做 commit，不 push，適合本地暫存或尚未準備推送的情境。需要 push 請用 git-push；一次完成請用 git-commit-push。
 ---
 
 # Git Smart Commit — 智慧拆分提交

@@ -1,5 +1,5 @@
 ---
-description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree 平行啟動 subagent 執行並驗收，完成後回報結果等待人工確認。當使用者說「執行所有 spec」、「全部 spec 一起跑」、「exec all specs」、「平行執行所有 worktree」、「spec-exec-all」時觸發。
+description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree 平行啟動 subagent 執行並驗收，完成後回報結果等待人工確認。當使用者說「執行所有 spec」、「全部 spec 一起跑」、「平行執行所有 worktree」、「git-spec-exec-all」時觸發。
 ---
 
 # 平行執行所有 Worktree Spec

@@ -1,5 +1,5 @@
 ---
-description: 將當前 worktree 的變更依功能邏輯拆分 commit，並 push 到遠端分支。當使用者說「commit 並 push」、「提交並推送」、「commit push」、「commit-push」時觸發（單一 worktree）。
+description: 將當前 worktree 的變更依功能邏輯拆分 commit，並 push 到遠端分支（commit + push 一次完成）。當使用者說「commit 並 push」、「提交並推送」、「git-commit-push」時觸發（單一 worktree）。
 ---
 
 # Commit + Push 當前 Worktree

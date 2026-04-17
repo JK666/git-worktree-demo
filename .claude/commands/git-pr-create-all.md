@@ -1,5 +1,5 @@
 ---
-description: 掃描所有已 push 的 feature 分支，平行啟動 subagent 依 PR 模板產生 Pull Request 並建立到 GitHub。當使用者說「產生所有 PR」、「建立所有 PR」、「pr all」、「pr-all」、「pr-create-all」時觸發。
+description: 掃描所有已 push 的 feature 分支，平行啟動 subagent 依 PR 模板執行 gh pr create 建立所有 PR 到 GitHub。當使用者說「產生所有 PR」、「建立所有 PR」、「git-pr-create-all」時觸發。
 ---
 
 # 平行產生所有 Worktree PR

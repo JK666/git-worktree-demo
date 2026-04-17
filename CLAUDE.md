@@ -37,40 +37,47 @@ pnpm preview      # 預覽打包後的正式版本
 
 每個 skill 支援兩種觸發方式：**AI 自動判斷觸發**（依下列條件）或**手動輸入 slash command**。
 
-### 命名規則：`<動詞>-<對象>`，單一 worktree 不加後綴，全部加 `-all`
+### 命名規則：`git-<對象>-<動作>`，單一不加後綴，全部加 `-all`
 
-| 指令 | 範圍 | 手動觸發 | AI 自動觸發條件 |
-|------|------|----------|----------------|
-| `git-worktree-design` | ALL | `/git-worktree-design` | 說「worktree」、「平行開發」、「多分支」，或需求適合拆成多個 feature branch |
-| `spec-exec` | Single | `/spec-exec` | 進入含 `git-worktree-spec.md` 的 worktree 後說「開始開發」、「執行 spec」、「按 spec 做」 |
-| `spec-exec-all` | ALL | `/spec-exec-all` | 說「執行所有 spec」、「全部 spec 一起跑」、「平行執行所有 worktree」 |
-| `git-smart-commit` | Single | `/git-smart-commit` | 說「幫我 commit」、「smart commit」（只 commit，不 push） |
-| `commit-push` | Single | `/commit-push` | 說「commit 並 push」、「提交並推送」（單一 worktree，commit + push） |
-| `commit-push-all` | ALL | `/commit-push-all` | 說「全部 commit push」、「提交所有分支」 |
-| `git-pr-description` | Single | `/git-pr-description` | 說「寫 PR」、「PR 描述」、「建立 PR」（單一分支） |
-| `pr-create-all` | ALL | `/pr-create-all` | 說「產生所有 PR」、「建立所有 PR」 |
+| 指令 | 範圍 | 動作 | 說明 |
+|------|------|------|------|
+| `git-worktree-design` | ALL | 設計+建立 | 分析需求 → 建立 worktrees → 寫 spec |
+| `git-spec-exec` | Single | 執行 spec | 執行當前 worktree 的 spec |
+| `git-spec-exec-all` | ALL | 執行 spec | 平行執行所有 worktree spec |
+| `git-commit-description` | Single | 只 commit | 智慧拆分 commit，不 push |
+| `git-commit-description-all` | ALL | 只 commit | 平行智慧 commit 所有 worktree，不 push |
+| `git-push` | Single | 只 push | 推送已 commit 的變更，不 commit |
+| `git-push-all` | ALL | 只 push | 推送所有 worktree 已 commit 的變更 |
+| `git-commit-push` | Single | commit + push | 智慧 commit 並推送（一次完成） |
+| `git-commit-push-all` | ALL | commit + push | 平行 commit + push 所有 worktree |
+| `git-pr-description` | Single | 產生描述 | 只產生 PR 描述文字供複製，不建立 PR |
+| `git-pr-create` | Single | 建立 PR | 執行 gh pr create 建立單一 PR |
+| `git-pr-create-all` | ALL | 建立 PR | 平行建立所有分支的 PR |
 
 ### 混搭範例
 
 ```
-# 全部一起跑
-spec-exec-all → commit-push-all → pr-create-all
+# 全部自動化
+git-worktree-design → git-spec-exec-all → git-commit-push-all → git-pr-create-all
 
-# 混合：全部跑 spec，各自手動確認後再統一推
-spec-exec-all → commit-push → commit-push → ... → pr-create-all
+# 分離 commit / push（各自確認後再推）
+git-spec-exec-all → git-commit-description-all → git-push-all → git-pr-create-all
 
 # 單一 worktree 完整流程
-spec-exec → commit-push → pr-create
+git-spec-exec → git-commit-push → git-pr-create
+
+# 只想先看 PR 描述再決定要不要建立
+git-pr-description → （確認後）git-pr-create
 ```
 
 ### Worktree Workflow
 
 當使用 git worktree 平行開發時：
 1. 主專案執行 `pnpm install`（pnpm symlink 共享依賴，worktree 不需重複安裝）
-2. 執行 `/worktree-design` → 分析需求、建立 worktrees、寫入 `git-worktree-spec.md`
-3. 執行 `/spec-exec` 或 `/spec-exec-all` → 依 spec 逐項實作並打勾追蹤進度
-4. 執行 `/commit-push` 或 `/commit-push-all` → 自動拆分 commit 並推送
-5. 執行 `/pr-create` 或 `/pr-create-all` → 建立 PR
+2. 執行 `/git-worktree-design` → 分析需求、建立 worktrees、寫入 `git-worktree-spec.md`
+3. 執行 `/git-spec-exec` 或 `/git-spec-exec-all` → 依 spec 逐項實作並打勾追蹤進度
+4. 執行 `/git-commit-push` 或 `/git-commit-push-all` → 自動拆分 commit 並推送
+5. 執行 `/git-pr-create` 或 `/git-pr-create-all` → 建立 PR
 6. Code Review → Merge PR → `git pull` 更新 master
 7. 刪除已合併的 worktree 與分支
 
