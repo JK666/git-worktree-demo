@@ -22,17 +22,22 @@ repo/
 
 ## Skill 速查表
 
-| 指令 | 範圍 | 說明 |
-|------|------|------|
-| `/worktree-design` | ALL | 分析需求 → 建立所有 worktree → 寫 spec |
-| `/spec-exec` | Single | 執行**當前** worktree 的 spec |
-| `/spec-exec-all` | ALL | 平行執行**所有** worktree 的 spec |
-| `/commit-push` | Single | **當前** worktree commit + push |
-| `/commit-push-all` | ALL | 平行 commit + push **所有** worktree |
-| `/pr-create` | Single | 建立**當前**分支的 PR |
-| `/pr-create-all` | ALL | 平行建立**所有**分支的 PR |
+> 命名規則：`git-<對象>-<動作>`，單一不加後綴，全部加 `-all`
 
-> 命名規則：`<動詞>-<對象>`，單一 worktree 不加後綴，全部加 `-all`
+| 指令 | 範圍 | 動作 | 說明 |
+|------|------|------|------|
+| `/git-worktree-design` | ALL | 設計+建立 | 分析需求 → 建立 worktrees → 寫 spec |
+| `/git-spec-exec` | Single | 執行 spec | 執行**當前** worktree 的 spec |
+| `/git-spec-exec-all` | ALL | 執行 spec | 平行執行**所有** worktree 的 spec |
+| `/git-commit-description` | Single | 只 commit | 智慧拆分 commit，不 push |
+| `/git-commit-description-all` | ALL | 只 commit | 平行智慧 commit 所有 worktree，不 push |
+| `/git-push` | Single | 只 push | 推送已 commit 的變更 |
+| `/git-push-all` | ALL | 只 push | 推送所有 worktree 已 commit 的變更 |
+| `/git-commit-push` | Single | commit + push | 智慧 commit 並推送（一次完成） |
+| `/git-commit-push-all` | ALL | commit + push | 平行 commit + push 所有 worktree |
+| `/git-pr-description` | Single | 產生描述 | 只產生 PR 描述文字供複製，不建立 PR |
+| `/git-pr-create` | Single | 建立 PR | 執行 gh pr create 建立單一 PR |
+| `/git-pr-create-all` | ALL | 建立 PR | 平行建立所有分支的 PR |
 
 ---
 
@@ -55,7 +60,7 @@ cp .env.example .env  # 若有環境變數，複製並填寫
 告訴 Claude 你有哪些需求，讓它分析後建立 worktree 與 spec：
 
 ```
-/worktree-design
+/git-worktree-design
 ```
 
 Claude 會：
@@ -67,12 +72,12 @@ Claude 會：
 
 **全部一起跑（推薦）：**
 ```
-/spec-exec-all
+/git-spec-exec-all
 ```
 
 **只跑某一個：** 切換到該 worktree 資料夾後：
 ```
-/spec-exec
+/git-spec-exec
 ```
 
 Claude 會依 spec 的 checklist 逐項實作，完成後回報驗收結果。
@@ -83,30 +88,41 @@ Claude 會依 spec 的 checklist 逐項實作，完成後回報驗收結果。
 
 ### 步驟 5：Commit + Push
 
-**全部一起推：**
+**全部一起（commit + push）：**
 ```
-/commit-push-all
+/git-commit-push-all
 ```
 
-**只推某一個：** 切換到該 worktree 後：
+**只做某一個：** 切換到該 worktree 後：
 ```
-/commit-push
+/git-commit-push
+```
+
+**或分開執行：**
+```
+/git-commit-description-all   # 先全部 commit
+/git-push-all                 # 再全部 push
 ```
 
 Claude 會依功能邏輯自動拆分 commit，並 push 到遠端分支。
 
-> commit-push 執行後，post-commit hook 會自動將 `git-worktree-spec.md` 歸檔到 `history_specs/`。
+> commit 執行後，post-commit hook 會自動將 `git-worktree-spec.md` 歸檔到 `history_specs/`。
 
 ### 步驟 6：建立 PR
 
 **全部建立：**
 ```
-/pr-create-all
+/git-pr-create-all
 ```
 
 **只建立某一個：**
 ```
-/pr-create
+/git-pr-create
+```
+
+**只想先看描述再決定：**
+```
+/git-pr-description   # 產生文字，確認後再執行 /git-pr-create
 ```
 
 ### 步驟 7：Code Review → Merge
@@ -138,25 +154,34 @@ git branch -d feature/cookie-consent
 ### 場景 A：全部自動化
 
 ```
-/worktree-design → /spec-exec-all → /commit-push-all → /pr-create-all
+/git-worktree-design → /git-spec-exec-all → /git-commit-push-all → /git-pr-create-all
 ```
 
-### 場景 B：各自手動確認 spec，之後統一推
+### 場景 B：分離 commit / push（各自確認後再推）
 
 ```
-/spec-exec（faq worktree）
-/spec-exec（cookie worktree）
+/git-spec-exec-all
+/git-commit-description-all   # 先全部 commit，逐一確認
+/git-push-all                 # 確認無誤後統一 push
+/git-pr-create-all
+```
+
+### 場景 C：各自手動確認 spec，之後統一推
+
+```
+/git-spec-exec（faq worktree）
+/git-spec-exec（cookie worktree）
 ... 逐一確認 ...
-/commit-push-all
-/pr-create-all
+/git-commit-push-all
+/git-pr-create-all
 ```
 
-### 場景 C：某個 feature 先完成，不等其他
+### 場景 D：某個 feature 先完成，不等其他
 
 ```
-/spec-exec（faq worktree）
-/commit-push（faq worktree）
-/pr-create（faq worktree）
+/git-spec-exec（faq worktree）
+/git-commit-push（faq worktree）
+/git-pr-create（faq worktree）
 ... 其他繼續跑 spec ...
 ```
 
@@ -304,7 +329,7 @@ A：放在 repo 同層目錄，格式 `../<repo-name>-<feature-short-name>`。
 A：執行 `git pull --ff-only`，若無法 fast-forward 再用 `git pull --rebase`。
 
 **Q：某個 spec 只完成一半，能繼續跑嗎？**  
-A：可以。`/spec-exec` 會讀取 spec 中未打勾的項目繼續執行。
+A：可以。`/git-spec-exec` 會讀取 spec 中未打勾的項目繼續執行。
 
 **Q：PR merge 後 local branch 和 worktree 怎麼清？**  
 A：參考步驟 8，`git worktree remove` + `git branch -d`。
