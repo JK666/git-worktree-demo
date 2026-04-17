@@ -29,7 +29,7 @@ git diff --stat
 | 3 | 元件（按元件名稱） | `src/components/Foo.jsx` + 對應樣式 |
 | 4 | 頁面 / App 入口 | `src/App.jsx` |
 | 5 | 全域樣式 | `src/index.css` |
-| 6 | 文件 / Spec | `*.md`, `git-worktree-spec.md` |
+| 6 | 文件 | `*.md`（**排除** `git-worktree-spec.md` — 由 post-commit hook 自動歸檔，不納入 commit 分群） |
 | 7 | Claude 設定 | `.claude/**` |
 
 ## 步驟三：展示 Commit 計畫並等待確認

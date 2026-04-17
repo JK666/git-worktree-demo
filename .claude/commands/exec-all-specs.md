@@ -14,11 +14,13 @@ description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree
 
 對每個 worktree 進行以下判斷：
 - 跳過 `master` / `main` 分支（主線不執行 spec）
-- 檢查 `<worktree-path>/git-worktree-spec.md` 是否存在
-- 若存在，讀取全文，計算 `- [ ]` 數量
-- **未完成數 > 0**：加入待執行清單
+- 依序檢查 spec 來源：
+  1. `<worktree-path>/git-worktree-spec.md` 是否存在（尚未歸檔）
+  2. 若不存在，檢查 `<worktree-path>/history_specs/` 是否有檔案（已歸檔）→ 取最新一筆（檔名排序最後）
+- 若找到 spec，讀取全文，計算 `- [ ]` 數量
+- **未完成數 > 0**：加入待執行清單（標註來源路徑）
 - **未完成數 = 0**：標記為「已完成，跳過」
-- **無 spec 檔案**：標記為「無 spec，跳過」
+- **無 spec 檔案且無歸檔**：標記為「無 spec，跳過」
 
 ## 步驟二：回報掃描結果
 
@@ -50,7 +52,7 @@ description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree
 立即使用 EnterWorktree 工具，傳入 path: "<絕對路徑>"，切換進入目標 worktree。
 這是必要步驟，確保所有後續檔案讀寫都在正確 worktree 下執行，不需要確認。
 
-以下是此 worktree 的 git-worktree-spec.md 全文：
+以下是此 worktree 的 spec 全文（來源：<spec 來源路徑>）：
 <貼入 spec 全文>
 
 【第二步：逐項實作】
