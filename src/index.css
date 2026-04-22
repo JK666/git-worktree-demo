@@ -246,6 +246,18 @@ button {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.btn--success {
+  background: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+}
+
+.btn--success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+}
+
 /* ========================================
    NAVBAR
    ======================================== */
@@ -1263,6 +1275,12 @@ button {
   animation: cookieSlideDown var(--transition-slow) ease forwards;
 }
 
+.cookie-consent--accepted {
+  background: rgba(16, 185, 129, 0.06);
+  border-top-color: rgba(16, 185, 129, 0.3);
+  transition: background var(--transition-slow), border-top-color var(--transition-slow);
+}
+
 @keyframes cookieSlideUp {
   from { transform: translateY(100%); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
@@ -1271,6 +1289,16 @@ button {
 @keyframes cookieSlideDown {
   from { transform: translateY(0);    opacity: 1; }
   to   { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes checkIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+.cookie-consent__accept-label {
+  display: inline-block;
+  animation: checkIn 0.25s ease forwards;
 }
 
 .cookie-consent__inner {
