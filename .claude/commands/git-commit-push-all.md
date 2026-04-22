@@ -1,5 +1,5 @@
 ---
-description: 掃描所有 git worktree，對每個有未提交變更的 feature 分支平行啟動 subagent 進行 commit 與 push。當使用者說「全部 commit push」、「commit push all」、「提交所有分支」、「推送所有分支」時觸發。
+description: 掃描所有 git worktree，對每個有未提交變更的 feature 分支平行啟動 subagent 進行 commit + push（全部 worktree）。當使用者說「全部 commit push」、「git-commit-push-all」時觸發。
 ---
 
 # 平行 Commit + Push 所有 Worktree
