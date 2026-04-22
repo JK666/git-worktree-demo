@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NAV_LINKS, BRAND } from '../data/navigation';
 import { useLanguage } from '../context/LanguageContext';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const { language, setLanguage, t } = useLanguage();
+    const [theme, setTheme] = useState(() => {
+        const saved = localStorage.getItem('theme');
+        return saved === 'light' ? 'light' : 'dark';
+    });
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+    };
 
     function toggleLanguage() {
         setLanguage(language === 'zh' ? 'en' : 'zh');
@@ -45,6 +58,14 @@ function Navbar() {
                             </li>
                         ))}
                     </ul>
+                    <button
+                        className="navbar__theme-toggle"
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? '切換至淺色主題' : '切換至深色主題'}
+                        title={theme === 'dark' ? '切換至淺色主題' : '切換至深色主題'}
+                    >
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
                     <button
                         className="btn btn--outline btn--sm"
                         onClick={toggleLanguage}

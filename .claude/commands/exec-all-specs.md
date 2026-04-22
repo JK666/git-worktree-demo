@@ -1,5 +1,5 @@
 ---
-description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree 平行啟動 subagent 執行並驗收，完成後回報結果等待人工確認。當使用者說「執行所有 spec」、「全部 spec 一起跑」、「平行執行所有 worktree」、「git-spec-exec-all」時觸發。
+description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree 平行啟動 subagent 執行並驗收，完成後回報結果等待人工確認。當使用者說「執行所有 spec」、「全部 spec 一起跑」、「exec all specs」、「平行執行所有 worktree」時觸發。
 ---
 
 # 平行執行所有 Worktree Spec
@@ -14,13 +14,13 @@ description: 掃描所有 git worktree，對每個有未完成 spec 的 worktree
 
 對每個 worktree 進行以下判斷：
 - 跳過 `master` / `main` 分支（主線不執行 spec）
-- 檢查 `<worktree-path>/git-worktree-spec.md` 是否存在
+- 依序檢查 spec 來源：
+  1. `<worktree-path>/git-worktree-spec.md` 是否存在（尚未歸檔）
+  2. 若不存在，檢查 `<worktree-path>/history_specs/` 是否有檔案（已歸檔）→ 取最新一筆（檔名排序最後）
 - 若找到 spec，讀取全文，計算 `- [ ]` 數量
-- **未完成數 > 0**：加入待執行清單
+- **未完成數 > 0**：加入待執行清單（標註來源路徑）
 - **未完成數 = 0**：標記為「已完成，跳過」
-- **無 spec 檔案**：標記為「無 spec，跳過」
-
-> `history_specs/` 為已完成歸檔的記錄，不視為可執行的 spec，不納入掃描。
+- **無 spec 檔案且無歸檔**：標記為「無 spec，跳過」
 
 ## 步驟二：回報掃描結果
 
