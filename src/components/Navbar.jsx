@@ -1,8 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NAV_LINKS, BRAND } from '../data/navigation';
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [theme, setTheme] = useState(() => {
+        // 頁面載入時讀取 localStorage，初始化主題
+        const saved = localStorage.getItem('theme');
+        return saved === 'light' ? 'light' : 'dark';
+    });
+
+    useEffect(() => {
+        // 套用主題至 document.documentElement
+        document.documentElement.setAttribute('data-theme', theme);
+        // 持久化至 localStorage
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+    };
 
     return (
         <header className="navbar" role="banner">
@@ -39,6 +55,14 @@ function Navbar() {
                             </li>
                         ))}
                     </ul>
+                    <button
+                        className="navbar__theme-toggle"
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? '切換至淺色主題' : '切換至深色主題'}
+                        title={theme === 'dark' ? '切換至淺色主題' : '切換至深色主題'}
+                    >
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
                     <a href="#demo" className="btn btn--primary btn--sm navbar__cta">
                         預約 Demo
                     </a>
