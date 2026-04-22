@@ -1,5 +1,61 @@
+import { useState, useEffect, useRef } from 'react';
 import { HERO_CONTENT } from '../data/hero';
 import { useLanguage } from '../context/LanguageContext';
+
+function parseStatValue(value) {
+    const match = value.match(/^([\d.]+)(.*)$/);
+    if (!match) return { num: 0, decimals: 0, suffix: value };
+    const numStr = match[1];
+    const suffix = match[2];
+    const decimals = numStr.includes('.') ? numStr.split('.')[1].length : 0;
+    return { num: parseFloat(numStr), decimals, suffix };
+}
+
+function useCountUp(end, decimals, duration = 1800) {
+    const [count, setCount] = useState(0);
+    const ref = useRef(null);
+    const hasStarted = useRef(false);
+
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasStarted.current) {
+                    hasStarted.current = true;
+                    const startTime = performance.now();
+
+                    const animate = (now) => {
+                        const elapsed = now - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        setCount(parseFloat((eased * end).toFixed(decimals)));
+                        if (progress < 1) requestAnimationFrame(animate);
+                    };
+
+                    requestAnimationFrame(animate);
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, [end, decimals, duration]);
+
+    return { count, ref };
+}
+
+function StatCounter({ value }) {
+    const { num, decimals, suffix } = parseStatValue(value);
+    const { count, ref } = useCountUp(num, decimals, 1800);
+    return (
+        <span className="hero__stat-value" ref={ref}>
+            {count.toFixed(decimals)}{suffix}
+        </span>
+    );
+}
 
 function Hero() {
     const { t } = useLanguage();
@@ -38,7 +94,7 @@ function Hero() {
                     <div className="hero__stats" role="list" aria-label={t({ zh: '關鍵成效數據', en: 'Key performance stats' })}>
                         {stats.map((stat, i) => (
                             <div key={i} className="hero__stat" role="listitem">
-                                <span className="hero__stat-value">{stat.value}</span>
+                                <StatCounter value={stat.value} />
                                 <span className="hero__stat-label">{t(stat.label)}</span>
                             </div>
                         ))}
