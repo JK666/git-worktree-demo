@@ -9,6 +9,8 @@ pnpm install      # 安裝依賴
 pnpm dev          # 啟動開發伺服器（http://localhost:3000，自動開啟瀏覽器）
 pnpm build        # 打包正式版本
 pnpm preview      # 預覽打包後的正式版本
+
+git config pull.rebase false   # 避免 pull 時 rebase 造成衝突（每人 clone 後執行一次）
 ```
 
 ## Architecture
@@ -34,6 +36,8 @@ pnpm preview      # 預覽打包後的正式版本
 `App.jsx` 依序渲染：`Navbar → Hero → SocialProof → Features → UseCases → Pricing → CallToAction → Footer`
 
 ## Skills / Slash Commands（`.claude/commands/`）
+
+> ⚠️ **執行任何 git / worktree / commit / push / PR / cleanup 操作前，必須先查下方 skill 表，找到對應 skill 後觸發，不可直接用 Bash 自行實作。**
 
 每個 skill 支援兩種觸發方式：**AI 自動判斷觸發**（依下列條件）或**手動輸入 slash command**。
 
