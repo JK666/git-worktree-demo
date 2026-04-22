@@ -4,6 +4,9 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git worktree *)"
+    ],
+    "additionalDirectories": [
+      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent"
     ]
   }
 }
