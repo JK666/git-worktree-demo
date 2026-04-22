@@ -4,11 +4,22 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git worktree *)",
+      "Bash(git pull *)",
+      "Bash(git log *)",
+      "Bash(git stash *)",
+      "Bash(git rebase *)",
       "Bash(git -C /Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent log --oneline -10)",
-      "Bash(git -C /Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent status --short)"
+      "Bash(git -C /Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent status --short)",
+      "Bash(pnpm dev *)",
+      "Bash(/Users/linweicheng/.nvm/versions/node/v22.15.0/bin/pnpm dev *)",
+      "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm dev *)",
+      "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm install *)",
+      "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm build *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Read(//Users/linweicheng/.nvm/versions/node/**)"
     ],
     "additionalDirectories": [
-       "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-i18n",
+      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-i18n",
       "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent"
     ]
   }
