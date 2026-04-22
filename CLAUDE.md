@@ -53,11 +53,16 @@ pnpm preview      # 預覽打包後的正式版本
 | `git-pr-description` | Single | 產生描述 | 只產生 PR 描述文字供複製，不建立 PR |
 | `git-pr-create` | Single | 建立 PR | 執行 gh pr create 建立單一 PR |
 | `git-pr-create-all` | ALL | 建立 PR | 平行建立所有分支的 PR |
+| `git-worktree-cleanup` | Single | 清理 | PR 合併後清理單一 worktree、本地與遠端分支 |
+| `git-worktree-cleanup-all` | ALL | 清理 | 掃描並清理所有已合併的 worktree |
 
 ### 混搭範例
 
 ```
-# 全部自動化
+# 完整生命週期（含清理）
+git-worktree-design → git-spec-exec-all → git-commit-push-all → git-pr-create-all → git-worktree-cleanup-all
+
+# 全部自動化（不含清理）
 git-worktree-design → git-spec-exec-all → git-commit-push-all → git-pr-create-all
 
 # 分離 commit / push（各自確認後再推）
