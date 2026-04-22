@@ -1,4 +1,5 @@
 import { FOOTER_DATA } from '../data/footer';
+import { useLanguage } from '../context/LanguageContext';
 
 const SOCIAL_ICONS = {
     fb: (
@@ -24,6 +25,7 @@ const SOCIAL_ICONS = {
 };
 
 function Footer() {
+    const { t } = useLanguage();
     const { brand, columns, social, copyright } = FOOTER_DATA;
 
     return (
@@ -31,18 +33,18 @@ function Footer() {
             <div className="container">
                 <div className="footer__top">
                     <div className="footer__brand">
-                        <a href="/" className="footer__logo" aria-label={`${brand.name} 首頁`}>
+                        <a href="/" className="footer__logo" aria-label={`${brand.name} ${t({ zh: '首頁', en: 'Home' })}`}>
                             <span className="footer__logo-icon" aria-hidden="true">◆</span>
                             {brand.name}
                         </a>
-                        <p className="footer__brand-desc">{brand.description}</p>
-                        <div className="footer__social" role="list" aria-label="社群媒體連結">
+                        <p className="footer__brand-desc">{t(brand.description)}</p>
+                        <div className="footer__social" role="list" aria-label={t({ zh: '社群媒體連結', en: 'Social media links' })}>
                             {social.map((s) => (
                                 <a
                                     key={s.icon}
                                     href={s.href}
                                     className="footer__social-link"
-                                    aria-label={s.label}
+                                    aria-label={t(s.label)}
                                     role="listitem"
                                 >
                                     {SOCIAL_ICONS[s.icon]}
@@ -52,14 +54,14 @@ function Footer() {
                     </div>
 
                     <div className="footer__columns">
-                        {columns.map((col) => (
-                            <div key={col.title} className="footer__column">
-                                <h3 className="footer__column-title">{col.title}</h3>
+                        {columns.map((col, ci) => (
+                            <div key={ci} className="footer__column">
+                                <h3 className="footer__column-title">{t(col.title)}</h3>
                                 <ul className="footer__column-list">
-                                    {col.links.map((link) => (
-                                        <li key={link.label}>
+                                    {col.links.map((link, li) => (
+                                        <li key={li}>
                                             <a href={link.href} className="footer__column-link">
-                                                {link.label}
+                                                {t(link.label)}
                                             </a>
                                         </li>
                                     ))}
