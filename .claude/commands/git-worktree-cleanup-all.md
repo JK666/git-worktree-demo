@@ -50,7 +50,7 @@ git branch -d <branch>              # 失敗時改用 -D
 git push origin --delete <branch> 2>/dev/null || true
 ```
 
-全部清理完成後，執行一次 `git pull` 更新 master。
+全部清理完成後，執行一次 `git pull --no-rebase` 更新 master。
 
 ## 步驟四：彙整結果
 

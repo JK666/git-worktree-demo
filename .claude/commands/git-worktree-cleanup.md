@@ -55,7 +55,7 @@ git branch -D <branch>
 git push origin --delete <branch> 2>/dev/null || echo "遠端分支已不存在，略過"
 
 # 4. 更新本地 master
-git pull
+git pull --no-rebase
 ```
 
 ## 步驟四：回報結果
