@@ -1,20 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add *)",
-      "Bash(git commit *)",
-      "Bash(git worktree *)",
-      "Bash(git pull *)",
-      "Bash(git log *)",
-      "Bash(git stash *)",
-      "Bash(git rebase *)",
-      "Bash(git branch *)",
-      "Bash(pnpm *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/*/bin/pnpm *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/*/bin/node *)",
-      "Bash(curl -s http://localhost:3000)",
-      "Bash(open http://localhost:3000)",
-      "Bash(command -v npx)",
       "Read(//Users/linweicheng/.nvm/versions/node/**)",
       "Read(//Users/linweicheng/.local/share/pnpm/**)",
       "Read(//usr/local/bin/**)"

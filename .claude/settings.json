@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(pnpm *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(open http://localhost:3000)",
+      "Bash(command -v npx)"
+    ]
+  }
+}
