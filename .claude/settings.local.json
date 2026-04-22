@@ -16,7 +16,17 @@
       "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm install *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm build *)",
       "Bash(curl -s http://localhost:3000)",
-      "Read(//Users/linweicheng/.nvm/versions/node/**)"
+      "Read(//Users/linweicheng/.nvm/versions/node/**)",
+      "Bash(open http://localhost:3000)",
+      "Bash(kill 68783)",
+      "Read(//Users/linweicheng/.local/share/pnpm/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(command -v npx)",
+      "Bash(/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo/node_modules/.bin/vite --open)",
+      "Read(//Users/linweicheng/Library/pnpm/**)",
+      "Read(//usr/**)",
+      "Read(//Users/linweicheng/Library/**)",
+      "Read(//Users/linweicheng/**)"
     ],
     "additionalDirectories": [
       "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-i18n",
