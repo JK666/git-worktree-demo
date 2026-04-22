@@ -8,24 +8,19 @@
       "Bash(git log *)",
       "Bash(git stash *)",
       "Bash(git rebase *)",
-      "Bash(git -C /Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent log --oneline -10)",
-      "Bash(git -C /Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent status --short)",
+      "Bash(git branch *)",
       "Bash(pnpm dev *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/v22.15.0/bin/pnpm dev *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm dev *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm install *)",
       "Bash(/Users/linweicheng/.nvm/versions/node/v24.15.0/bin/pnpm build *)",
+      "Bash(/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo/node_modules/.bin/vite --open)",
       "Bash(curl -s http://localhost:3000)",
+      "Bash(open http://localhost:3000)",
+      "Bash(command -v npx)",
       "Read(//Users/linweicheng/.nvm/versions/node/**)",
-      "Bash(git -C /Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-hero-count-up log master..HEAD --oneline)",
-      "Bash(git branch *)"
-    ],
-    "additionalDirectories": [
-      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-i18n",
-      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-cookie-consent",
-      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo-hero-count-up",
-      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo/.claude/commands",
-      "/Users/linweicheng/Documents/Code/Claud_Courses/Git_worktree/git-worktree-demo.worktrees"
+      "Read(//Users/linweicheng/.local/share/pnpm/**)",
+      "Read(//usr/local/bin/**)"
     ]
   }
 }
